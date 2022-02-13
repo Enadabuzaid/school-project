@@ -9,10 +9,12 @@ class CreateGradesTable extends Migration {
 	{
 		Schema::create('Grades', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->string('Name', 55);
-			$table->longText('Notes');
-		});
+			$table->string('grade_name', 255);
+			$table->longText('notes');
+            $table->string('created_by',100);
+            $table->timestamps();
+
+        });
 	}
 
 	public function down()

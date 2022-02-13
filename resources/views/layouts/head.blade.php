@@ -9,6 +9,7 @@
 <!--  Sidebar css -->
 <link href="{{URL::asset('assets/plugins/sidebar/sidebar.css')}}" rel="stylesheet">
 
+
 @yield('css')
 
 
@@ -21,7 +22,7 @@
     <link href="{{URL::asset('assets/css/style-dark.css')}}" rel="stylesheet">
     <!---Skinmodes css-->
     <link href="{{URL::asset('assets/css/skin-modes.css')}}" rel="stylesheet">
-    
+
 @else
     <!-- Sidemenu css -->
     <link rel="stylesheet" href="{{URL::asset('assets/css-rtl/sidemenu.css')}}">
@@ -31,5 +32,5 @@
     <link href="{{URL::asset('assets/css-rtl/style-dark.css')}}" rel="stylesheet">
     <!---Skinmodes css-->
     <link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">
-    
+
 @endif

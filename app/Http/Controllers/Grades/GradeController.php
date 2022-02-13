@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Response;
+use App\Http\Requests\StoreGrades;
+use App\Models\Grade\Grade;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -16,7 +18,18 @@ class GradeController extends Controller
    */
   public function index()
   {
-      return view('pages.grades.grades');
+//      $data = ['page_name' =>'Grade List'];
+
+      $pages = [
+          "parent_page" => "Grade",
+          "current_page" => "Grade List",
+          "parent_page_ar" => "المراحل الدراسية",
+          "current_page_ar" => "قائمة المراحل الدراسية"
+      ];
+
+      $grades = Grade::all();
+      return view('pages.grades.grades',compact('grades'))
+          ->with('pages',$pages);
   }
 
   /**
@@ -34,9 +47,32 @@ class GradeController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(StoreGrades $request)
   {
+    try{
+        $validated = $request->validated();
 
+        $grade = new Grade();
+
+        $grade->grade_name = [
+            'en' => $request->grade_name_en ,
+            'ar' => $request->grade_name_ar
+        ];
+
+        $grade->notes = [
+            'en' => $request->notes_en ,
+            'ar' => $request->notes_ar
+        ];
+
+        $grade->save();
+
+        toastr()->success(trans('message.success'));
+
+        return redirect()->route('grades.index');
+    }
+     catch (\Exception $e){
+        return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
+     }
   }
 
   /**

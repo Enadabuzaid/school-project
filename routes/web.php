@@ -33,7 +33,11 @@ Route::group(
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 
 
-    Route::get('/grades', 'App\Http\Controllers\Grades\GradeController@index')->name('grades');
+//    Route::get('/grades', 'App\Http\Controllers\Grades\GradeController@index')->name('grades');
+
+    Route::group(['namespace' =>'App\Http\Controllers\Grades'],function(){
+        Route::resource('grades','GradeController');
+    });
 
 
 

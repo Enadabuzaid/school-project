@@ -31,7 +31,7 @@
                     <li class="slide">
                         <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}"><span class="side-menu__label">{{trans('side_trans.Grades')}}</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="{{ route('grades') }}">{{trans('side_trans.Grade list')}}</a></li>
+                            <li><a class="slide-item" href="{{ route('grades.index') }}">{{trans('side_trans.Grade list')}}</a></li>
                         </ul>
                     </li>
 
