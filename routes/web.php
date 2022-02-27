@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,22 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+Route::group(['middleware'=>['guest']],function(){
 
+    Route::get('/', function () {
+        return view('auth.login');
+    });
+});
 
 
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' , 'auth']
     ], function()
 {
 
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-    Route::get('/', function () {
-        return view('index');
+
+
+//    Route::get('/grades', 'App\Http\Controllers\Grades\GradeController@index')->name('grades');
+
+    Route::group(['namespace' =>'App\Http\Controllers\Grades'],function(){
+        Route::resource('grades','GradeController');
     });
+
+
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
 });
+
+
 
 

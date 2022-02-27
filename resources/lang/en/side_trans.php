@@ -1,5 +1,7 @@
-<?php 
+<?php
 
 return [
-  'Dashboard' => 'Dashboard'
+    'Dashboard' => 'Dashboard',
+    'Grades' => 'Grades',
+    'Grade list' => 'Grade list'
 ];
