@@ -22,6 +22,12 @@ return [
     "Add Grade Notes in Arabic" =>"Add Grade Notes in Arabic",
     "Grade Page"=>"Grade Page",
     "Oh snap!"=>"Oh snap!",
+    "Edit"=>"Edit",
+    "Edit Grade in English"=>"Edit Grade in English",
+    "Edit Grade Notes in English"=>"Edit Grade Notes in English",
+    "you must fill all required field in English and Arabic"=>"you must fill all required field in English and Arabic",
+    "Delete"=>"Delete",
+    "warning delete" => "Are you Sure Want Delete this ?",
 
 
 

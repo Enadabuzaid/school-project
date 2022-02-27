@@ -22,6 +22,13 @@ return [
     "Add Grade Notes in Arabic" =>"اضافة ملاحظات باللغة العربية",
     "Grade Page"=>"صفحة المراحل الدراسية",
     "Oh snap!"=>"للاسف!",
+    "Edit"=>"تعديل",
+    "Edit Grade in English"=>"تعديل المرحلة الدراسية باللغة الانجليزية",
+    "Edit Grade Notes in English"=>"تعديل المرحلة الدراسية باللغة العربية",
+    "you must fill all required field in English and Arabic"=>"يجب تعبئة جميع الحقول المطلوبة باللغتين العربية والانجليزية",
+    "Delete"=>"حذف",
+    "warning delete" => "هل انت متأكد من حذف هذه المرحلة ؟",
+
 
 
 
