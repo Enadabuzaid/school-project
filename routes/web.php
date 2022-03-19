@@ -39,6 +39,10 @@ Route::group(
         Route::resource('grades','GradeController');
     });
 
+    Route::group(['namespace' =>'App\Http\Controllers\Classroom'],function(){
+        Route::resource('classrooms','ClassroomController');
+    });
+
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

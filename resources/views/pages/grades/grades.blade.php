@@ -24,6 +24,10 @@
         #toast-container>.toast-success{
             background: darkseagreen !important;
         }
+
+        #toast-container>.toast-error{
+            background: red !important;
+        }
     </style>
 
 @endsection
@@ -270,6 +274,7 @@
                                             <!-- delete modal -->
                                             <div class="modal fade" id="delete{{ $grade->id }}" tabindex="-1" role="dialog"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content modal-content-demo">
                                                         {{----------header Modal ---------}}
