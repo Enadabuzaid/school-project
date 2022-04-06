@@ -40,7 +40,7 @@ Route::group(
     });
 
     Route::group(['namespace' =>'App\Http\Controllers\Classroom'],function(){
-        Route::resource('classrooms','ClassroomController');
+        Route::resource('classrooms/classrooms-list','ClassroomController');
     });
 
 

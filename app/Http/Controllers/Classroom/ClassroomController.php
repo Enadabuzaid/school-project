@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Classroom;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Classroom;
+use App\Models\Grade\Grade;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -16,6 +17,8 @@ class ClassroomController extends Controller
    */
   public function index()
   {
+      $classroom = Classroom::all();
+      $grade = Grade::all();
       return view('pages.classrooms.classrooms');
   }
 

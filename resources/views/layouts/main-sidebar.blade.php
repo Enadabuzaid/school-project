@@ -44,7 +44,7 @@
                             <i class="angle fe fe-chevron-down"></i>
                         </a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="{{ route('classrooms.index') }}">{{trans('side_trans.class rooms list')}}</a></li>
+                            <li><a class="slide-item" href="{{ route('classrooms-list.index') }}">{{trans('side_trans.class rooms list')}}</a></li>
                         </ul>
                     </li>
 
