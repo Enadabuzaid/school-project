@@ -1,6 +1,6 @@
 <?php
 
 return [
-    "classrooms" => "ClassRooms",
+    "classrooms" => "Classrooms",
     "classrooms-list" => "Classrooms List"
 ];
