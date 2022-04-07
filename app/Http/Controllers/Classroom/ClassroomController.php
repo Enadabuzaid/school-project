@@ -17,9 +17,9 @@ class ClassroomController extends Controller
    */
   public function index()
   {
-      $classroom = Classroom::all();
-      $grade = Grade::all();
-      return view('pages.classrooms.classrooms');
+      $classrooms = Classroom::all();
+      $grades = Grade::all();
+      return view('pages.classrooms.classrooms',compact('grades','classrooms'));
   }
 
   /**

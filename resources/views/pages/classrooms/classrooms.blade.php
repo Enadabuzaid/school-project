@@ -13,6 +13,7 @@
             <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#addModal">{{trans('classes.AddClass')}}</a>
         </div>
 
+
         <!-- Add modal -->
         <div class="modal" id="addModal">
             <div class="modal-dialog" role="document" style="max-width: 60%">
@@ -24,18 +25,8 @@
                     </div>
                     {{---------End header Modal --------}}
 
-
                     {{---------End Body Modal --------}}
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-1">
-                                <span class="text-danger">*</span>
-                            </div>
-                            <div class="col">
-                                <p class="tx-gray-400">you must fill all required field in English and Arabic</p>
-                            </div>
-                        </div>
-
                             <form class="" id="add-grade-form" action="{{ route('classrooms-list.store') }}" method="POST">
                                 @csrf
                                 <div class="form-repeater-container" id="form-repeater">
@@ -45,19 +36,20 @@
                                             <div class="form-group fieldGroup mt-3" style="">
                                                     <div class="row">
                                                         <div class="col-lg-3">
-                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> Class Name in English</label>
-                                                            <input type="text" name="name_en[]" class="form-control" placeholder="Name English" />
+                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameEng')}}</label>
+                                                            <input type="text" name="name_en[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
                                                         </div>
                                                         <div class="col-lg-3">
-                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> Class Name in Arabic</label>
-                                                            <input type="text" name="name_ar[]" class="form-control" placeholder="Name Arabic" />
+                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameAr')}}</label>
+                                                            <input type="text" name="name_ar[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
                                                         </div>
                                                         <div class="col-lg-3">
-                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> Grade name</label>
+                                                            <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.selectGrade')}}</label>
                                                             <select class="form-control" name="grade[]">
-                                                                <option>Default select</option>
-                                                                <option>test1 select</option>
-                                                                <option>test2 select</option>
+                                                                <option>{{trans('classes.selectEngHolder')}}</option>
+                                                                @foreach($grades as $grade)
+                                                                    <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-3">
@@ -70,16 +62,17 @@
                                             <div class="form-group fieldGroupCopy" style="display: none;">
                                                 <div class="row">
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="name_en[]" class="form-control" placeholder="Name English" />
+                                                        <input type="text" name="name_en[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="name_ar[]" class="form-control" placeholder="Name Arabic" />
+                                                        <input type="text" name="name_ar[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <select class="form-control" name="grade[]">
-                                                            <option>Default select</option>
-                                                            <option>test1 select</option>
-                                                            <option>test2 select</option>
+                                                            <option>{{trans('classes.selectEngHolder')}}</option>
+                                                            @foreach($grades as $grade)
+                                                                <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-3">
