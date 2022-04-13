@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+
 
 class Classroom extends Model
 {
-//    protected $fillable = ['grade_name','notes'];
-    protected $guarded = [];
+    use HasTranslations;
+    protected $fillable = ['name_class','grade'];
 
+    public $translatable = ['name_class'];
     protected $table = 'classrooms';
     public $timestamps = true;
 

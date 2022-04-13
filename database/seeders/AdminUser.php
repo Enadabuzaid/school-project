@@ -21,5 +21,11 @@ class AdminUser extends Seeder
             'email' =>'enad.abuzaid15@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
+
+//        User::create([
+//            'name' =>'enad',
+//            'email' =>'enad.abuzaid15@gmail.com',
+//            'password' => Hash::make('12345678'),
+//        ]);
     }
 }

@@ -19,5 +19,8 @@ class Grade extends Model
      * @var array|mixed
      */
 
-
+    public function sections()
+    {
+        return $this->hasMany('App\Models\Section','grade_id');
+    }
 }

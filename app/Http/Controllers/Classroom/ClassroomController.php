@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Classroom;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreClassroom;
 use App\Models\Classroom;
 use App\Models\Grade\Grade;
 use Illuminate\Http\Request;
@@ -39,7 +40,37 @@ class ClassroomController extends Controller
    */
   public function store(Request $request)
   {
-        dd($request);
+
+
+      dd($request);
+
+//      try {
+//          $validated =  $request->validated();
+//
+//          $classroom = new Classroom();
+//
+//          $names_en = array_filter($request->name_en);
+//          $classroom->name_class = [
+//              'en' => implode(",",$names_en),
+//              'ar' => implode(",",$request->name_ar),
+//          ];
+//
+//          $classroom->grade_id = [
+//              'en' => $request->grade
+//          ];
+//
+//          $classroom->save();
+//
+//          return redirect()->back();
+//      }
+//       catch (\Exception $e){
+//          return redirect()->back();
+//       }
+
+
+
+
+
   }
 
   /**

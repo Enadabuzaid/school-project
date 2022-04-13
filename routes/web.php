@@ -43,6 +43,12 @@ Route::group(
         Route::resource('classrooms/classrooms-list','ClassroomController');
     });
 
+    Route::group(['namespace' =>'App\Http\Controllers\Section'],function(){
+        Route::resource('sections','sectionController');
+
+        Route::get('/classes/{id}', 'sectionController@getClasses');
+    });
+
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -37,15 +37,15 @@
                                                     <div class="row">
                                                         <div class="col-lg-3">
                                                             <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameEng')}}</label>
-                                                            <input type="text" name="name_en[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
+                                                            <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameAr')}}</label>
-                                                            <input type="text" name="name_ar[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
+                                                            <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.selectGrade')}}</label>
-                                                            <select class="form-control" name="grade[]">
+                                                            <select class="form-control" name="list[]">
                                                                 <option>{{trans('classes.selectEngHolder')}}</option>
                                                                 @foreach($grades as $grade)
                                                                     <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
@@ -62,13 +62,13 @@
                                             <div class="form-group fieldGroupCopy" style="display: none;">
                                                 <div class="row">
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="name_en[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
+                                                        <input type="text" name="class_list[list[]]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="name_ar[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
+                                                        <input type="text" name="class_list[list[]]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <select class="form-control" name="grade[]">
+                                                        <select class="form-control" name="class_list[list[]]">
                                                             <option>{{trans('classes.selectEngHolder')}}</option>
                                                             @foreach($grades as $grade)
                                                                 <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
