@@ -7,6 +7,7 @@ use App\Http\Requests\StoreClassroom;
 use App\Models\Classroom;
 use App\Models\Grade\Grade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClassroomController extends Controller
 {
@@ -41,36 +42,28 @@ class ClassroomController extends Controller
   public function store(Request $request)
   {
 
+      try {
+          $validated =  $request->validated();
 
-      dd($request);
+          $all_list_without_empty  = array_filter($request->list);
+          $remove_last_one = array_pop($all_list_without_empty);
 
-//      try {
-//          $validated =  $request->validated();
-//
-//          $classroom = new Classroom();
-//
-//          $names_en = array_filter($request->name_en);
-//          $classroom->name_class = [
-//              'en' => implode(",",$names_en),
-//              'ar' => implode(",",$request->name_ar),
-//          ];
-//
-//          $classroom->grade_id = [
-//              'en' => $request->grade
-//          ];
-//
-//          $classroom->save();
-//
-//          return redirect()->back();
-//      }
-//       catch (\Exception $e){
-//          return redirect()->back();
-//       }
+          $rows = array_chunk($all_list_without_empty,3);
 
-
-
-
-
+          for ($i=0;$i<count($rows);$i++){
+              $classroom = new Classroom();
+              $classroom->name_class = [
+                  'en' => $rows[$i][0],
+                  'ar' => $rows[$i][1],
+              ];
+              $classroom->grade_id = $rows[$i][2];
+              $classroom->save();
+          }
+          return redirect()->back();
+      }
+       catch (\Exception $e){
+          return redirect()->back();
+       }
   }
 
   /**
