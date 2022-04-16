@@ -158,5 +158,7 @@ return [
     */
 
     'attributes' => [],
+    'requiredClass' => "All (*) fields are required"
+
 
 ];

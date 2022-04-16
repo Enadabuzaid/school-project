@@ -24,20 +24,14 @@ class StoreClassroom extends FormRequest
     public function rules()
     {
         return [
-            'list' => 'required',
-            'name_ar' => 'required',
-            'grade' => 'required'
-
+//            'list[]' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'list.required' => trans('validation.required'),
-            'name_ar.required' => trans('validation.required'),
-            'grade.required' => trans('validation.required'),
-
+//            'list[].required' => trans('validation.requiredClass'),
         ];
     }
 }

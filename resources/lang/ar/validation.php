@@ -159,4 +159,6 @@ return [
 
     'attributes' => [],
 
+    'requiredClass' => "جميع الحقول التي تحتوي (*) مطلوبة"
+
 ];

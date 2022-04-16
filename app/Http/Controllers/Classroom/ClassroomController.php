@@ -39,11 +39,12 @@ class ClassroomController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(StoreClassroom $request)
   {
 
       try {
-          $validated =  $request->validated();
+//          $validated =  $request->validated();
+
 
           $all_list_without_empty  = array_filter($request->list);
           $remove_last_one = array_pop($all_list_without_empty);
@@ -59,10 +60,11 @@ class ClassroomController extends Controller
               $classroom->grade_id = $rows[$i][2];
               $classroom->save();
           }
-          return redirect()->back();
+          session()->flash('Add', 'add worker success');
+          return redirect()->route('classrooms-list.index');
       }
        catch (\Exception $e){
-          return redirect()->back();
+           return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
        }
   }
 
