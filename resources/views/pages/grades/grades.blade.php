@@ -4,8 +4,8 @@
 @endsection
 @section('css')
     @toastr_css
-    @include('includes.data-table')
-    @include('includes.modal')
+    @include('includes.helper.data-table')
+    @include('includes.helper.modal')
 
     <style>
         #toast-container>.toast-success{
@@ -204,7 +204,7 @@
                                                             <div class="panel-body tabs-menu-body main-content-body-right mt-lg-3">
 
                                                                 <form class="" id="add-grade-form" action="{{ route('grades.update','test') }}" method="POST">
-                                                                    <input id="text" type="text" name="id" class="form-control" value="{{ $grade->id }}">
+                                                                    <input id="text" type="hidden" name="id" class="form-control" value="{{ $grade->id }}">
                                                                     @csrf
                                                                     @method('PUT')
                                                                     <div class="tab-content">
@@ -324,7 +324,7 @@
     @toastr_js
     @toastr_render
 
-    @include('includes.data-table-script')
-    @include('includes.modal-script')
+    @include('includes.helper.data-table-script')
+    @include('includes.helper.modal-script')
 
     @endsection

@@ -6,5 +6,6 @@ return [
     "selectGrade" => "Grade name",
     "nameEngHolder" => "Name English",
     "nameArHolder" => "Name Arabic",
-    "selectEngHolder" => "Select grade"
+    "selectEngHolder" => "Select grade",
+    "Edit Classroom"=> "Edit Classroom",
 ];

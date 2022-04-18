@@ -23,9 +23,14 @@ class StoreGrades extends FormRequest
      */
     public function rules()
     {
-        return [
-            'grade_name_en' =>'required',
-            'grade_name_ar'=>'required'
+//        return [
+//            'grade_name_en' =>'required',
+//            'grade_name_ar'=>'required'
+//        ];
+
+        return  [
+            'grade_name_en' => 'required|unique:Grades,grade_name->en,'.$this->id,
+            'grade_name_ar' => 'required|unique:Grades,grade_name->ar,'.$this->id
         ];
     }
 
@@ -34,6 +39,8 @@ class StoreGrades extends FormRequest
         return [
             'grade_name_en.required' => trans('validation.required'),
             'grade_name_ar.required' => trans('validation.required'),
+            'grade_name_en.unique' => trans('validation.unique'),
+            'grade_name_ar.unique' => trans('validation.unique'),
         ];
     }
 }

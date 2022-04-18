@@ -45,10 +45,8 @@ class ClassroomController extends Controller
       try {
 //          $validated =  $request->validated();
 
-
           $all_list_without_empty  = array_filter($request->list);
           $remove_last_one = array_pop($all_list_without_empty);
-
           $rows = array_chunk($all_list_without_empty,3);
 
           for ($i=0;$i<count($rows);$i++){

@@ -1,16 +1,14 @@
 @extends('layouts.master')
 @section('css')
-    @include('includes.data-table')
-    @include('includes.modal')
-    <!--Internal  Font Awesome -->
-    <link href="{{URL::asset('assets/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
-    <!--Internal   Notify -->
-    <link href="{{URL::asset('assets/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
-    <!--Internal  treeview -->
-    <link href="{{URL::asset('assets/plugins/treeview/treeview.css')}}" rel="stylesheet" type="text/css" />
+    @include('includes.helper.data-table')
+    @include('includes.helper.modal')
+    @include('includes.helper.notify')
 {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--}}
 @endsection
 
+@section('title')
+    Classroom List
+@endsection
 @if (session()->has('Add'))
     @if (App::getLocale() == 'en')
         <script>
@@ -88,10 +86,10 @@
                                             <div class="form-group fieldGroupCopy" style="display: none;">
                                                 <div class="row">
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
+                                                        <input type="text" value="" name="list[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
+                                                        <input type="text" value="" name="list[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" />
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <select class="form-control" name="list[]">
@@ -192,81 +190,55 @@
                                         <td>
                                             {{--EDIT BUTTONS --}}
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                                    data-target="#edit{{ $grade->id }}"
-                                                    title="{{trans('grade_trans.Edit')}}">
+                                                    data-target="#edit{{ $classroom->id }}"
+                                                    title="{{trans('general.Edit')}}">
                                                 <i class="fa fa-edit"></i>
                                             </button>
 
                                             <!-- edit modal -->
-                                            <div class="modal fade" id="edit{{ $grade->id }}" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="edit{{ $classroom->id }}" tabindex="-1" role="dialog"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content modal-content-demo">
                                                         {{----------header Modal ---------}}
                                                         <div class="modal-header">
-                                                            <h6 class="modal-title">{{trans('grade_trans.Edit Grade')}}</h6>
+                                                            <h6 class="modal-title">{{trans('classes.Edit Classroom')}}</h6>
                                                             <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-
                                                         </div>
                                                         {{---------End header Modal --------}}
 
 
                                                         {{---------End Body Modal --------}}
                                                         <div class="modal-body">
-                                                            <div class="row">
-                                                                <span class="text-danger ml-3 mr-2">*</span><p class="tx-gray-400">{{trans('grade_trans.you must fill all required field in English and Arabic')}}</p>
-                                                            </div>
-
-                                                            <div class=" tab-menu-heading">
-                                                                <div class="tabs-menu1">
-                                                                    <!-- Tabs -->
-                                                                    <ul class="nav panel-tabs main-nav-line">
-                                                                        <li><a href="#tab{{$grade->id}}" class="nav-link active" data-toggle="tab">{{trans('grade_trans.English')}}</a></li>
-                                                                        <li><a href="#tab{{$grade->id + 1}}" class="nav-link" data-toggle="tab">{{trans('grade_trans.Arabic')}}</a></li>
-                                                                    </ul>
+                                                            <form class="" id="add-grade-form" action="{{ route('classrooms-list.update','test') }}" method="POST">
+                                                                <input id="text" type="text" name="id" class="form-control" value="{{ $classroom->id }}">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="form-group">
+                                                                    <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameEng')}}</label>
+                                                                    <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" required/>
                                                                 </div>
-                                                            </div>
+                                                                <div class="form-group">
+                                                                    <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameAr')}}</label>
+                                                                    <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" required />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.selectGrade')}}</label>
+                                                                    <select class="form-control" name="list[]" >
+                                                                        <option value="0">{{trans('classes.selectEngHolder')}}</option>
+                                                                        @foreach($grades as $grade)
+                                                                            <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
 
-                                                            <div class="panel-body tabs-menu-body main-content-body-right mt-lg-3">
-
-                                                                <form class="" id="add-grade-form" action="{{ route('grades.update','test') }}" method="POST">
-                                                                    <input id="text" type="text" name="id" class="form-control" value="{{ $grade->id }}">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="tab-content">
-                                                                        <div class="tab-pane active" id="tab{{$grade->id}}">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">{{trans('grade_trans.Edit Grade in English')}}</label><span class="text-danger ml-1">*</span>
-                                                                                <input type="text" name="grade_name_en" value="{{$grade->getTranslation('grade_name', 'en')}}" class="form-control" id="exampleInputEmail1" placeholder="{{trans('grade_trans.Enter Grade')}}" >
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputPassword1">{{trans('grade_trans.Edit Grade Notes in English')}}</label>
-                                                                                <textarea class="form-control" name="notes_en" placeholder="{{trans('grade_trans.Add Grade Notes')}}" rows="3">{{$grade->getTranslation('notes', 'en')}}</textarea>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="tab-pane" id="tab{{$grade->id + 1}}">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">{{trans('grade_trans.Add Grade in Arabic')}}</label><span class="text-danger ml-1">*</span>
-                                                                                <input type="text" name="grade_name_ar" value="{{$grade->getTranslation('grade_name', 'ar')}}" class="form-control" id="exampleInputEmail1" placeholder="{{trans('grade_trans.Enter Grade')}}" >
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputPassword1">{{trans('grade_trans.Add Grade Notes in Arabic')}}</label>
-                                                                                <textarea name="notes_ar" class="form-control" placeholder="{{trans('grade_trans.Add Grade Notes')}}" rows="3">{{$grade->getTranslation('notes', 'ar')}}</textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="d-flex" style="justify-content: flex-end;gap:0.2rem;">
-                                                                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{trans('grade_trans.Close')}}</button>
-                                                                        <input class="btn ripple btn-info" type="submit" value="{{trans('grade_trans.Edit')}}">
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                                <div class="d-flex" style="justify-content: flex-end;gap:0.2rem;">
+                                                                    <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{trans('general.Close')}}</button>
+                                                                    <input class="btn ripple btn-info" type="submit" value="{{trans('general.Edit')}}">
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                         {{---------End Body Modal --------}}
-
-
 
                                                         {{----------Footer Modal ---------}}
                                                         <div class="modal-footer">
@@ -339,7 +311,6 @@
             </div>
         </div>
     </div>
-
     <!-- row closed -->
     </div>
     <!-- Container closed -->
@@ -347,13 +318,9 @@
     <!-- main-content closed -->
 @endsection
 @section('js')
-    <!-- Internal Treeview js -->
-    <script src="{{URL::asset('assets/plugins/treeview/treeview.js')}}"></script>
-    <!--Internal  Notify js -->
-    <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
-    <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script>
-    @include('includes.data-table-script')
-    @include('includes.modal-script')
+    @include('includes.helper.data-table-script')
+    @include('includes.helper.modal-script')
+    @include('includes.helper.notify-script')
     <script>
         $(document).ready(function() {
             // max of form

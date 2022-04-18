@@ -7,5 +7,7 @@ return [
     "selectGrade" => "اسم المرحلة الدراسية",
     "nameEngHolder" => "الاسم بالانجلزي",
     "nameArHolder" => "الاسم بالعربي",
-    "selectEngHolder" => "اختر الصف الدراسي"
+    "selectEngHolder" => "اختر الصف الدراسي",
+    "Edit Classroom" => "تعديل الصف الدراسي"
+
 ];
