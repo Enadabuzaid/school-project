@@ -9,6 +9,7 @@
 @section('title')
     Classroom List
 @endsection
+
 @if (session()->has('Add'))
     @if (App::getLocale() == 'en')
         <script>
@@ -29,6 +30,28 @@
         }
     </script>
 @endif
+
+@if (session()->has('edit'))
+    @if (App::getLocale() == 'en')
+        <script>
+            let messg = "update Classroom has been Successfully";
+        </script>
+    @else
+        <script>
+            let messg = "تم تعديل الصف الدراسي بنجاح";
+        </script>
+    @endif
+    <script>
+        window.onload = function() {
+            notif({
+                msg: messg,
+                type: "success",
+                position: "right"
+            })
+        }
+    </script>
+@endif
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
@@ -210,22 +233,22 @@
 
                                                         {{---------End Body Modal --------}}
                                                         <div class="modal-body">
-                                                            <form class="" id="add-grade-form" action="{{ route('classrooms-list.update','test') }}" method="POST">
+                                                            <form class="" id="add-grade-form" action="{{ route('classrooms-list.update', $classroom->id) }}" method="POST">
                                                                 <input id="text" type="text" name="id" class="form-control" value="{{ $classroom->id }}">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="form-group">
                                                                     <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameEng')}}</label>
-                                                                    <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" required/>
+                                                                    <input type="text" name="class_en" class="form-control" placeholder="{{trans('classes.nameEngHolder')}}" value="{{$classroom->getTranslation('name_class','en')}}"/>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.nameAr')}}</label>
-                                                                    <input type="text" name="list[]" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" required />
+                                                                    <input type="text" name="class_ar" class="form-control" placeholder="{{trans('classes.nameArHolder')}}" value="{{$classroom->getTranslation('name_class','ar')}}" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="formGroupExampleInput"><span class="text-danger">*</span> {{trans('classes.selectGrade')}}</label>
-                                                                    <select class="form-control" name="list[]" >
-                                                                        <option value="0">{{trans('classes.selectEngHolder')}}</option>
+                                                                    <select class="form-control" name="class_grade" >
+                                                                        <option value="{{$classroom->grades->id}}">{{$classroom->grades->grade_name}}</option>
                                                                         @foreach($grades as $grade)
                                                                             <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
                                                                         @endforeach

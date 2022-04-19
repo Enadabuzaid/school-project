@@ -58,7 +58,7 @@ class ClassroomController extends Controller
               $classroom->grade_id = $rows[$i][2];
               $classroom->save();
           }
-          session()->flash('Add', 'add worker success');
+          session()->flash('Add', 'add class success');
           return redirect()->route('classrooms-list.index');
       }
        catch (\Exception $e){
@@ -94,9 +94,22 @@ class ClassroomController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(StoreClassroom $request,$id)
   {
+      try{
+          $classes = Classroom::findOrFail($id);
 
+          $classes->update([
+              $classes->name_class = ['en'=>$request->class_en,'ar' => $request->class_ar],
+              $classes->grade_id = $request->class_grade
+          ]);
+
+          session()->flash('edit', 'update classroom success');
+          return redirect()->route('classrooms-list.index');
+      }
+      catch (\Exception $e){
+          return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
+      }
   }
 
   /**
