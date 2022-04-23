@@ -8,4 +8,5 @@ return [
     "nameArHolder" => "Name Arabic",
     "selectEngHolder" => "Select grade",
     "Edit Classroom"=> "Edit Classroom",
+    "Delete Classroom"=> "Delete Classroom",
 ];

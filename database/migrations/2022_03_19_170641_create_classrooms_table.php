@@ -11,6 +11,7 @@ class CreateClassroomsTable extends Migration {
 			$table->id();
 			$table->string('name_class');
 			$table->bigInteger('grade_id')->unsigned();
+            $table->softDeletes();
 			$table->timestamps();
 		});
 	}

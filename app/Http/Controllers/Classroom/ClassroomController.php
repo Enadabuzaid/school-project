@@ -96,6 +96,10 @@ class ClassroomController extends Controller
    */
   public function update(StoreClassroom $request,$id)
   {
+      if(Classroom::where('name_class->ar',$request->class_ar)->orWhere('name_class->en',$request->class_an)->exists()){
+          return redirect()->back()->withErrors(trans('message.exist'));
+      }
+
       try{
           $classes = Classroom::findOrFail($id);
 
@@ -118,9 +122,17 @@ class ClassroomController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request  $request)
   {
-
+      try{
+          $id = $request->id;
+          Classroom::findOrFail($id)->delete();
+          session()->flash('trashed', 'update classroom success');
+          return redirect()->route('classrooms-list.index');
+      }
+      catch (\Exception $e){
+          return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
+      }
   }
 
 }

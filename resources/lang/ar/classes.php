@@ -8,6 +8,8 @@ return [
     "nameEngHolder" => "الاسم بالانجلزي",
     "nameArHolder" => "الاسم بالعربي",
     "selectEngHolder" => "اختر الصف الدراسي",
-    "Edit Classroom" => "تعديل الصف الدراسي"
+    "Edit Classroom" => "تعديل الصف الدراسي",
+    "Delete Classroom"=> "حذف الصف الدراسي",
+
 
 ];

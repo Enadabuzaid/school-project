@@ -52,6 +52,30 @@
     </script>
 @endif
 
+@if (session()->has('trashed'))
+    @if (App::getLocale() == 'en')
+        <script>
+            let messg = "Trashed Classroom has been Successfully";
+        </script>
+    @else
+        <script>
+            let messg = "تم نقل الصف الدراسي الى المسودة بنجاح بنجاح";
+        </script>
+    @endif
+    <script>
+        window.onload = function() {
+            notif({
+                msg: messg,
+                type: "warning",
+                position: "right"
+            })
+        }
+    </script>
+@endif
+
+
+
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
@@ -234,7 +258,7 @@
                                                         {{---------End Body Modal --------}}
                                                         <div class="modal-body">
                                                             <form class="" id="add-grade-form" action="{{ route('classrooms-list.update', $classroom->id) }}" method="POST">
-                                                                <input id="text" type="text" name="id" class="form-control" value="{{ $classroom->id }}">
+{{--                                                                <input id="text" type="text" name="id" class="form-control" value="{{ $classroom->id }}">--}}
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="form-group">
@@ -273,35 +297,35 @@
                                             <!-- End edit modal -->
 
                                             {{--DELETE BUTTONS --}}
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#delete{{ $grade->id }}"
-                                                    title="{{ trans('grade_trans.Delete') }}">
+                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                    data-target="#delete{{ $classroom->id }}"
+                                                    title="{{ trans('general.Trash') }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
 
                                             <!-- delete modal -->
-                                            <div class="modal fade" id="delete{{ $grade->id }}" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="delete{{ $classroom->id }}" tabindex="-1" role="dialog"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
 
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content modal-content-demo">
                                                         {{----------header Modal ---------}}
                                                         <div class="modal-header">
-                                                            <h6 class="modal-title">{{trans('grade_trans.Edit Grade')}}</h6>
+                                                            <h6 class="modal-title">{{trans('classes.Delete Classroom')}}</h6>
                                                             <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 
                                                         </div>
                                                         {{---------End header Modal --------}}
 
-                                                        <form action="{{route('grades.destroy','test')}}" method="post">
+                                                        <form action="{{route('classrooms-list.destroy','test')}}" method="post">
                                                             @method('Delete')
                                                             @csrf
                                                             {{--------- Body Modal --------}}
                                                             <div class="modal-body">
 
 
-                                                                <input id="id" type="hidden" name="id" class="form-control" value="{{ $grade->id }}">
-                                                                {{trans('grade_trans.warning delete')}}
+                                                                <input id="id" type="hidden" name="id" class="form-control" value="{{ $classroom->id }}">
+                                                                {{trans('general.warning trash')}}
 
 
                                                             </div>
@@ -312,9 +336,9 @@
                                                             {{----------Footer Modal ---------}}
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">{{trans('grade_trans.Close')}}</button>
+                                                                        data-dismiss="modal">{{trans('general.Close')}}</button>
                                                                 <button type="submit"
-                                                                        class="btn btn-danger">{{trans('grade_trans.Delete')}}</button>
+                                                                        class="btn btn-warning">{{trans('general.Trash')}}</button>
                                                             </div>
                                                         </form>
                                                         {{---------End Footr Modal --------}}
