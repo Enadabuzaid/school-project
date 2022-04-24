@@ -41,6 +41,8 @@ Route::group(
 
     Route::group(['namespace' =>'App\Http\Controllers\Classroom'],function(){
         Route::resource('classrooms/classrooms-list','ClassroomController');
+
+        Route::post('delete_all', 'ClassroomController@delete_all')->name('delete_all');
     });
 
     Route::group(['namespace' =>'App\Http\Controllers\Section'],function(){

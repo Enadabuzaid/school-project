@@ -7,7 +7,7 @@
 @endsection
 
 @section('title')
-    Classroom List
+    {{trans('classes.title')}}
 @endsection
 
 @if (session()->has('Add'))
@@ -74,16 +74,26 @@
 @endif
 
 
-
-
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         @include('includes.breadcrumb')
 
-        <div class="d-flex my-xl-auto right-content">
-            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#addModal">{{trans('classes.AddClass')}}</a>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex my-xl-auto right-content">
+                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#addModal">{{trans('classes.AddClass')}}</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex my-xl-auto right-content">
+
+                    <a style="width:10rem" class="modal-effect btn btn-outline-danger btn-block" data-effect="effect-scale" data-toggle="modal" href="#deleteAll" id="btn_delete_all">{{trans('classes.removeAll')}}</a>
+                </div>
+            </div>
+
         </div>
+
 
         <!-- Add modal -->
         <div class="modal" id="addModal">
@@ -174,6 +184,47 @@
             </div>
         </div>
         <!-- End Add modal -->
+
+        <!-- delete All modal -->
+        <div class="modal fade" id="deleteAll" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-demo">
+                    {{----------header Modal ---------}}
+                    <div class="modal-header">
+                        <h6 class="modal-title">{{trans('classes.Delete All Classroom')}}</h6>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    {{---------End header Modal --------}}
+
+                    <form action="{{route('delete_all')}}" method="post">
+                        @method('post')
+                        @csrf
+                        {{--------- Body Modal --------}}
+                        <div class="modal-body">
+                            {{trans('general.warning delete all')}}
+                            <input class="hidden" type="text" id="delete_all_id" name="delete_all_id" value=''>
+                        </div>
+                        {{---------End Body Modal --------}}
+
+
+
+                        {{----------Footer Modal ---------}}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">{{trans('general.Close')}}</button>
+                            <button type="submit"
+                                    class="btn btn-outline-danger">{{trans('general.Delete All')}}</button>
+                        </div>
+                    </form>
+                    {{---------End Footr Modal --------}}
+                </div>
+            </div>
+        </div>
+        <!-- End delete Allmodal -->
+
     <!-- breadcrumb -->
 @endsection
 @section('content')
@@ -198,7 +249,6 @@
                     @endif
 
                     @if ($errors->any())
-
                         @foreach ($errors->all() as $error)
                             <div class="alert alert-danger mg-b-0 mb-2" role="alert">
                                 <button aria-label="Close" class="close" data-dismiss="alert" type="button">
@@ -207,29 +257,33 @@
                                 <strong>{{trans('grade_trans.Oh snap!')}}</strong> {{ $error }}
                             </div>
                         @endforeach
-
-
                     @endif
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
-                            <tr>
-                                <th class="wd-15p border-bottom-0">#</th>
-                                <td>{{trans('classes.nameEng')}}</td>
-                                <td>{{trans('classes.nameAr')}}</td>
-                                <td>{{trans('classes.selectGrade')}}</td>
-                                <td>{{trans('general.Processes')}}</td>
-                            </tr>
+                            @if(!$classrooms->isEmpty())
+                                <tr>
+                                    <th class="wd-6"><label class="ckbox"><input type="checkbox"  name="select_all" id="select_all" onclick="checkAll('checked',this)"><span></span></label></th>
+                                    <th class="wd-8p border-bottom-0">#</th>
+                                    <td>{{trans('classes.nameEng')}}</td>
+                                    <td>{{trans('classes.nameAr')}}</td>
+                                    <td>{{trans('classes.selectGrade')}}</td>
+                                    <td>{{trans('general.Processes')}}</td>
+                                </tr>
+                            @endif
+
                             </thead>
                             <tbody>
                             @if($classrooms->isEmpty())
-                                <tr><td colspan="4" class="text-center text-danger">{{trans('general.No Data Available')}}</td></tr>
+                                <tr><td colspan="6" class="text-center text-danger ">{{trans('general.No Data Available')}}</td></tr>
                             @else
                                 @php
                                     $i = 1;
                                 @endphp
                                 @foreach($classrooms as $classroom)
                                     <tr>
+
+                                        <td><label class="ckbox"><input type="checkbox" value="{{$classroom->id}}" class="checked"><span></span></label></td>
                                         <td>{{$i++}}</td>
                                         <td>{{$classroom->getTranslation('name_class', 'en')}}</td>
                                         <td>{{$classroom->getTranslation('name_class', 'ar') }}</td>
@@ -386,6 +440,38 @@
             //remove form
             $("body").on("click", ".remove", function() {
                 $(this).parents(".fieldGroup").remove();
+            });
+        });
+    </script>
+
+    <script>
+
+        function checkAll(className,elem){
+            const elements = document.getElementsByClassName(className);
+            let leng = elements.length;
+
+            if (elem.checked){
+                for (let i = 0 ; i < leng; i++){
+                    elements[i].checked = true;
+                }
+            } else {
+                for (let i = 0 ; i < leng; i++){
+                    elements[i].checked = false;
+                }
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_delete_all").click(function() {
+                var selected = new Array();
+                $("#example1 input[type=checkbox]:checked").each(function() {
+                    selected.push(this.value);
+                });
+                if (selected.length > 0) {
+                    $('input[id="delete_all_id"]').val(selected);
+                }
             });
         });
     </script>

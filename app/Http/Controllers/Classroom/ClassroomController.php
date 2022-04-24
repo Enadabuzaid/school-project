@@ -135,6 +135,18 @@ class ClassroomController extends Controller
       }
   }
 
+  public function delete_all(Request $request){
+      $delete_all_id = explode(",", $request->delete_all_id);
+
+      if(in_array('on',$delete_all_id)){
+          array_shift($delete_all_id);
+      }
+
+      Classroom::whereIn('id', $delete_all_id)->delete();
+      session()->flash('trashed', 'trashed classroom success');
+      return redirect()->route('classrooms-list.index');
+  }
+
 }
 
 ?>

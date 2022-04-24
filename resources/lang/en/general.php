@@ -8,6 +8,8 @@ return [
     "Trash" => "Trash",
     "warning delete" => "Are you Sure Want Delete this ?",
     "warning trash" => "Are you Sure Want Trash this ?",
+    "warning delete all" => "Are you sure want delete all selected rows",
+    "Delete All" => "Delete All",
 
 
 
