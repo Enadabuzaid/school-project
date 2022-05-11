@@ -10,6 +10,8 @@ return [
     "warning trash" => "هل انت متأكد من نقل  هذا الى المسودة ؟",
     "warning delete all" => "هل انت متأكد من حذف جميع الصفوف المحددة",
     "Delete All" =>"حذف الجميع",
+    "Search By grade Name " => "البحث بأسم المرحلة الدراسية"
+
 
 
 

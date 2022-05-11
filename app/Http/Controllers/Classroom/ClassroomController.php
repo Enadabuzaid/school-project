@@ -147,6 +147,17 @@ class ClassroomController extends Controller
       return redirect()->route('classrooms-list.index');
   }
 
+  public  function filter_classes(Request  $request){
+
+
+
+      $grades = Grade::all();
+      $search = Classroom::select('*') -> where('grade_id','=',$request->grade_id)->get();
+
+
+      return view('pages.classrooms.classrooms',compact('grades'))->withDetails($search);
+  }
+
 }
 
 ?>

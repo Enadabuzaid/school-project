@@ -2,5 +2,7 @@
 
 return [
     "classrooms" => "Classrooms",
-    "classrooms-list" => "Classrooms List"
+    "classrooms-list" => "Classrooms List",
+    "filter_classes" => "Classroom Filter"
+
 ];

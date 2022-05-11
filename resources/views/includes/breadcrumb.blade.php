@@ -5,6 +5,8 @@
 
     $first = request()->segment(2);
     $last = request()->segment($count);
+
+
 @endphp
 
 <div class="my-auto">

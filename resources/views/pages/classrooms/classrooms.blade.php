@@ -87,12 +87,14 @@
             </div>
             <div class="col">
                 <div class="d-flex my-xl-auto right-content">
-
                     <a style="width:10rem" class="modal-effect btn btn-outline-danger btn-block" data-effect="effect-scale" data-toggle="modal" href="#deleteAll" id="btn_delete_all">{{trans('classes.removeAll')}}</a>
                 </div>
             </div>
-
         </div>
+
+
+
+
 
 
         <!-- Add modal -->
@@ -226,6 +228,21 @@
         <!-- End delete Allmodal -->
 
     <!-- breadcrumb -->
+
+    <div class="row justify-content-between">
+        <div class="col"></div>
+            <form action="{{ route('filter_classes')}} " method="post" class="col-lg-4 mb-3  d-flex right-content" id="filterClass">
+                {{ csrf_field() }}
+                <select class="form-control select2-no-search" id="grades" onchange="this.form.submit()" name="grade_id">
+                    <option label="{{trans('general.Search By grade Name ')}}">
+                    </option>
+                    @foreach($grades as $grade)
+                        <option value="{{$grade->id}}">{{$grade->grade_name}}</option>
+                    @endforeach
+                </select>
+            </form>
+
+    </div>
 @endsection
 @section('content')
     <!-- row -->
@@ -260,27 +277,39 @@
                     @endif
                     <div class="table-responsive">
                         <table class="table text-md-nowrap" id="example1">
+
+                            @if (isset($details))
+
+                                <?php $class_details = $details; ?>
+                            @else
+
+                                <?php $class_details = $classrooms; ?>
+                            @endif
                             <thead>
-                            @if(!$classrooms->isEmpty())
+                            @if(!$class_details->isEmpty())
                                 <tr>
                                     <th class="wd-6"><label class="ckbox"><input type="checkbox"  name="select_all" id="select_all" onclick="checkAll('checked',this)"><span></span></label></th>
                                     <th class="wd-8p border-bottom-0">#</th>
                                     <td>{{trans('classes.nameEng')}}</td>
                                     <td>{{trans('classes.nameAr')}}</td>
                                     <td>{{trans('classes.selectGrade')}}</td>
+                                    @if(Route::current()->getName() == 'classrooms-list.index'))
                                     <td>{{trans('general.Processes')}}</td>
+                                    @endif
                                 </tr>
                             @endif
 
                             </thead>
                             <tbody>
-                            @if($classrooms->isEmpty())
+                            @if($class_details->isEmpty())
                                 <tr><td colspan="6" class="text-center text-danger ">{{trans('general.No Data Available')}}</td></tr>
                             @else
                                 @php
                                     $i = 1;
                                 @endphp
-                                @foreach($classrooms as $classroom)
+
+
+                                @foreach($class_details as $classroom)
                                     <tr>
 
                                         <td><label class="ckbox"><input type="checkbox" value="{{$classroom->id}}" class="checked"><span></span></label></td>
@@ -288,6 +317,8 @@
                                         <td>{{$classroom->getTranslation('name_class', 'en')}}</td>
                                         <td>{{$classroom->getTranslation('name_class', 'ar') }}</td>
                                         <td>{{$classroom->grades->grade_name}}</td>
+
+                                        @if(Route::current()->getName() == 'classrooms-list.index'))
                                         <td>
                                             {{--EDIT BUTTONS --}}
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
@@ -402,6 +433,7 @@
                                             <!-- End delete modal -->
 
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             @endif
@@ -474,5 +506,13 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        // $(document).ready(function() {
+        //     $('#grades').on('change', function() {
+        //         document.forms['#filterClass'].submit();
+        //     });
+        // });
     </script>
 @endsection
