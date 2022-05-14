@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(AdminUser::class);
         $this->call(createGradeSeeder::class);
+        $this->call(BloodTableSeeder::class);
     }
 }
