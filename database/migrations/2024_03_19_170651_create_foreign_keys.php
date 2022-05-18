@@ -25,6 +25,15 @@ class CreateForeignKeys extends Migration {
             $table->foreign('grade_id')->references('id')->on('Grades')
                 ->onDelete('cascade');
         });
+
+        Schema::table('my_parents', function(Blueprint $table) {
+            $table->foreign('Nationality_Father_id')->references('id')->on('nationalities');
+            $table->foreign('Blood_Type_Father_id')->references('id')->on('type_bloods');
+            $table->foreign('Religion_Father_id')->references('id')->on('religions');
+            $table->foreign('Nationality_Mother_id')->references('id')->on('nationalities');
+            $table->foreign('Blood_Type_Mother_id')->references('id')->on('type_bloods');
+            $table->foreign('Religion_Mother_id')->references('id')->on('religions');
+        });
 	}
 
 	public function down()

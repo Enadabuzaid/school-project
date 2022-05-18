@@ -8,5 +8,8 @@ return [
     'Grade list' => 'Grade list',
     'class rooms' =>'Class Rooms',
     'class rooms list' =>'Class Rooms List',
+    'Parents' => 'Parents',
+    'Parents list' => 'Parents list',
+    'Add Parents'=>'Add Parents',
 
 ];
