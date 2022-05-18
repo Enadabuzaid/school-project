@@ -55,6 +55,10 @@ Route::group(
 
     });
 
+    Route::get('test',function (){
+        return view('pages.test_empty');
+    });
+
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
