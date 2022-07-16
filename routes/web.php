@@ -59,6 +59,8 @@ Route::group(
         return view('pages.test_empty');
     });
 
+    Route::view('parent/add-parent','livewire.show_form')->name('add-parent');
+
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
