@@ -56,7 +56,7 @@
                         </a>
                         <ul class="slide-menu">
                             <li><a class="slide-item" href="{{ route('classrooms-list.index') }}">{{trans('side_trans.Parents list')}}</a></li>
-                            <li><a class="slide-item" href="{{ route('classrooms-list.index') }}">{{trans('side_trans.Add Parents')}}</a></li>
+                            <li><a class="slide-item" href="{{ route('add-parent') }}">{{trans('side_trans.Add Parents')}}</a></li>
                         </ul>
                     </li>
 
